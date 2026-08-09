@@ -29,7 +29,7 @@ export default function InvitacionNoValida() {
       >
         Este enlace no corresponde a ninguna invitación.
         <br />
-        Revisá que esté completo o pedile
+        Revisá que esté completo o pidele
         <br />a los novios que te lo reenvíen.
       </p>
     </main>
