@@ -1,26 +1,120 @@
 @import "tailwindcss";
 
+@theme {
+  /*
+    Tipografías. Los nombres de next/font (--font-great-vibes, --font-gulzar)
+    se mantienen distintos de estos tokens para no crear una referencia
+    circular al resolverse ambos sobre :root.
+  */
+  --font-script: var(--font-great-vibes), cursive;
+  --font-body: var(--font-gulzar), serif;
+
+  /* Papel: promedio real de la textura bg-app.png */
+  --color-paper: #faf6ec;
+
+  /* Verde oliva del versículo y su referencia */
+  --color-verso: #716735;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Ancho exacto del frame de Figma */
+  --frame: 402px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  background-color: var(--color-paper);
+  -webkit-text-size-adjust: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/*
+  La textura cubre toda la pantalla. paper-tile.png está espejado en los
+  dos ejes, así que el mosaico es continuo en horizontal y en vertical y
+  no se ven costuras por ningún lado.
+*/
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-color: var(--color-paper);
+  background-image: url("/images/paper-tile.png");
+  background-repeat: repeat;
+  background-position: top center;
+}
+
+/* Columna de contenido: el ancho exacto del diseño */
+.frame {
+  width: 100%;
+  max-width: var(--frame);
+  margin-inline: auto;
+  overflow-x: hidden;
+}
+
+/* ---- Escala tipográfica tomada del diseño ---- */
+
+.t-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.t-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+/*
+  Degradado dorado del diseño. Se recorta contra el texto, por eso el
+  elemento debe ajustarse al ancho de las letras (inline-block): si
+  ocupara los 402px completos, las paradas del degradado no caerían
+  donde corresponde.
+*/
+.t-dorado {
+  display: inline-block;
+  background-image: linear-gradient(
+    90deg,
+    #655b2a 0%,
+    #c2b480 53%,
+    #655b2a 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /*
+    El degradado solo se pinta dentro de la caja del elemento. Con
+    interlineado ajustado, los trazos altos y las colas de las letras
+    quedan fuera y se ven cortados. El relleno vertical agranda la zona
+    pintada y el margen negativo lo compensa, así que el espaciado del
+    diseño no cambia. Solo vertical: un relleno horizontal correría la
+    parada del 53% del degradado.
+  */
+  padding-block: 0.5em;
+  margin-block: -0.5em;
+}
+
+/* Párrafos en mayúsculas: 10px / 23px / 16% de tracking */
+.t-parrafo {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 23px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/*
+  Gulzar solo existe en peso 400, así que un peso mayor lo sintetiza el
+  navegador. Es lo que da el trazo algo más grueso de la referencia
+  bíblica frente al párrafo.
+*/
+.t-recio {
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
