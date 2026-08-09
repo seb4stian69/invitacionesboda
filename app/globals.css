@@ -109,7 +109,38 @@ body {
   font-weight: 600;
 }
 
+/*
+  Aparición al hacer scroll.
+
+  El estado oculto se aplica solo bajo `.js`, una clase que agrega un
+  script al cargar la página. Si el JavaScript fallara o estuviera
+  desactivado, esa clase nunca se añade, los elementos nunca se ocultan
+  y la invitación se ve completa: una animación rota no puede dejar la
+  página en blanco.
+*/
+.reveal {
+  transition:
+    opacity 900ms ease-out,
+    transform 900ms ease-out;
+}
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.js .reveal.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  /* Sin movimiento: el contenido aparece de una vez, ya visible */
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
   *,
   *::before,
   *::after {

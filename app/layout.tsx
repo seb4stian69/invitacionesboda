@@ -37,7 +37,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="es"
       className={`${greatVibes.variable} ${gulzar.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        {/*
+          Marca que hay JavaScript disponible. El CSS de las animaciones
+          solo oculta elementos bajo `.js`, de modo que si esto no llega
+          a ejecutarse la invitación se ve completa igual.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add('js')`,
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
