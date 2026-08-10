@@ -39,12 +39,20 @@ body {
   background-position: top center;
 }
 
-/* Columna de contenido: el ancho exacto del diseño */
+/*
+  Columna de contenido: el ancho exacto del diseño.
+
+  Se usa `clip` y no `hidden`. Con `hidden` en un solo eje, el otro pasa
+  de `visible` a `auto` y la columna se vuelve un contenedor con scroll
+  propio; el desplazamiento de las animaciones cuenta como área
+  desplazable y aparece una caja interna que atrapa el scroll de la
+  página. `clip` recorta igual pero no genera esa caja.
+*/
 .frame {
   width: 100%;
   max-width: var(--frame);
   margin-inline: auto;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* ---- Escala tipográfica tomada del diseño ---- */
