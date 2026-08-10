@@ -87,15 +87,20 @@ body {
   color: transparent;
 
   /*
-    El degradado solo se pinta dentro de la caja del elemento. Con
-    interlineado ajustado, los trazos altos y las colas de las letras
-    quedan fuera y se ven cortados. El relleno vertical agranda la zona
-    pintada y el margen negativo lo compensa, así que el espaciado del
-    diseño no cambia. Solo vertical: un relleno horizontal correría la
-    parada del 53% del degradado.
+    El degradado solo se pinta dentro de la caja del elemento, y luego se
+    recorta contra las letras. Los trazos que sobresalen de esa caja —los
+    altos y las colas arriba y abajo, y los floreos de las mayúsculas de
+    Great Vibes a los lados— no reciben color y desaparecen.
+
+    El relleno agranda la zona pintada y el margen negativo lo compensa,
+    de modo que el espaciado del diseño no cambia. Al ser simétrico en
+    horizontal, el punto medio del degradado sigue cayendo en el centro
+    del texto.
   */
   padding-block: 0.5em;
   margin-block: -0.5em;
+  padding-inline: 0.35em;
+  margin-inline: -0.35em;
 }
 
 /* Párrafos en mayúsculas: 10px / 23px / 16% de tracking */

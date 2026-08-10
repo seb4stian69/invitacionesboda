@@ -11,15 +11,15 @@ export default function Cierre() {
     <section className="relative mt-[63px] pb-[30px]">
       {/*
         Ocupa todo el ancho de la pantalla, de borde a borde. El tamaño
-        real (1016x719) se declara solo para fijar la proporción; `sizes`
+        real (974x705) se declara solo para fijar la proporción; `sizes`
         le indica a Next que ocupa el ancho completo para que elija la
         resolución adecuada en cada dispositivo.
       */}
       <Image
         src="/images/logos/image 13 (1).png"
         alt="Acuarela de la terraza"
-        width={1016}
-        height={719}
+        width={974}
+        height={705}
         quality={90}
         sizes="100vw"
         className="h-auto w-full"

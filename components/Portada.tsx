@@ -12,14 +12,14 @@ export default function Portada() {
         className="t-script t-dorado leading-none"
         style={{ fontSize: 47 }}
       >
-        Sebastian &amp; Johana
+        Johana &amp; Sebastian
       </h1>
 
       <Ilustracion
         src="/images/logos/monograma.png"
         alt="Monograma de Sebastián y Johana"
         w={101}
-        h={115}
+        h={118}
         priority
         className="mt-[14px]"
       />
