@@ -5,30 +5,29 @@ export type Invitado = {
 };
 
 export const INVITADOS: Invitado[] = [
-  { id: "qhqsd75b03kfhv7ha5suu367v", ref: "Papitos", cupos: 2 },
-  { id: "s1am42ueizh1zkoclrvi0wfqy", ref: "Abuelitos", cupos: 2 },
-  { id: "9y7ylln4em9kgvabsgsf03ov9", ref: "Hermanito", cupos: 1 }, // Nelson Sanchez
-  { id: "ayfg5n82p14mkr4zb7xxfpwcd", ref: "Hermanito", cupos: 1 }, // Andres Sanchez
+  { id: "qhqsd75b03kfhv7ha5suu367v", ref: "Mis Papitos Manuel y Johana", cupos: 2 },
+  { id: "s1am42ueizh1zkoclrvi0wfqy", ref: "Abuelitos Margarita y Nelson", cupos: 2 },
+  { id: "9y7ylln4em9kgvabsgsf03ov9", ref: "Hermanito Nelson Sanchez", cupos: 1 },
+  { id: "ayfg5n82p14mkr4zb7xxfpwcd", ref: "Hermanito Andres Sanchez", cupos: 1 },
   { id: "quznmpghpdjghrwqkhifv21dp", ref: "Familia Zuñiga Camargo", cupos: 3 },
   { id: "dn4ulsoo13758w2r1m2rw2lxp", ref: "Familia Bohorquez Camargo", cupos: 2 },
   { id: "gqmlckzimnomcbcm86o8ttrd5", ref: "Familia Santis", cupos: 4 },
   { id: "v2j0hq30focnc0648zyft2n3s", ref: "Tia Lili y Juan", cupos: 2 },
   { id: "5swpy46fuc9jo3xg7r7691y9p", ref: "Familia Jaimes Estrada", cupos: 5 },
   { id: "uxs7ogyh9kp3q3xuyu9hviqlf", ref: "Familia Gonzalez Hernandez", cupos: 5 },
-  { id: "hlo2k9bzofd0m4cxt368cpwa8", ref: "Familia Vasquez Montes", cupos: 4 },
-  { id: "bww7joq0p6vncf6yf9xam3yjr", ref: "Familia Montes", cupos: 3 },
   { id: "dxq5b74b9tc0w606cvb5ycdmj", ref: "Hermanas Ortega", cupos: 2 },
   { id: "nzxtfmfrpt5ie9zroa7lmjn3q", ref: "Sofia Santos", cupos: 1 },
   { id: "299gexpphlexh3x5oifpeewwl", ref: "Maria Jose Carcamo Buelvas", cupos: 1 },
   { id: "ogkvon7e1qsykupti2d9oplgl", ref: "Jasmith Contreras", cupos: 1 },
-  { id: "apwahmzdgzznfa7zf0zx4h468", ref: "Simon", cupos: 1 },
+  { id: "apwahmzdgzznfa7zf0zx4h468", ref: "Simon (Saimon)", cupos: 1 },
   { id: "048kb8c0hpu6wkfy620wc3fd7", ref: "Valentina Contreras", cupos: 1 },
-  { id: "jis2wz6tfgjgo67lrkylnodyc", ref: "Danilo Vasquez", cupos: 1 },
   { id: "muieldnj5pllzg6vlo78femi6", ref: "Ledys Hernandez", cupos: 1 },
   { id: "7azdyiiu5etys5w2jmkt7b9px", ref: "Blanca Hernandez", cupos: 1 },
   { id: "lxzirj3apsxakrrqb1vwxsdvw", ref: "Jose Ruiz", cupos: 1 },
   { id: "fm415iq1qv1yosgg7pspai43w", ref: "Hernan Velasquez", cupos: 1 },
   { id: "8f0g691mshs03p7fbsbu2ij0x", ref: "Santiago Fernandez", cupos: 1 },
+  { id: "709f438d2b7e46ef8df715b5e", ref: "Familia Lugo Rodriguez", cupos: 4 },
+  { id: "bccea51c385f4822a2cb35260", ref: "Familia Estrada De Oro", cupos: 2 },
 ];
 
 /*
