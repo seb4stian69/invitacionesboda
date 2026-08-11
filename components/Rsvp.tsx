@@ -40,10 +40,10 @@ export default function Rsvp({ invitado }: { invitado: Invitado }) {
           así que `top: 50%` cae en su centro y el margen lo baja desde
           ahí.
 
-          A 402px queda metido 72px, que es el 65% de sus 111px de
+          A 402px queda metido 56px, que es el 50% de sus 111px de
           ancho. Ese es el punto de partida: al ensanchar la ventana el
           `min` va destapando lo escondido, y cuando el margen de papel
-          supera esos 72px el ramo se ancla al borde de la pantalla.
+          supera esos 56px el ramo se ancla al borde de la pantalla.
         */}
         <Flor
           w={111}
@@ -51,7 +51,7 @@ export default function Rsvp({ invitado }: { invitado: Invitado }) {
           espejada
           style={{
             top: "50%",
-            right: "min(-72px, calc((var(--frame) - 100vw) / 2))",
+            right: "min(-56px, calc((var(--frame) - 100vw) / 2))",
             marginTop: 29,
             transform: "translateY(-50%)",
           }}
