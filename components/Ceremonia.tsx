@@ -36,7 +36,7 @@ export default function Ceremonia() {
         <br />
         Sincelejo, Sucre
         <br />
-        5:30 PM
+        4:30 PM
       </p>
     </section>
   );

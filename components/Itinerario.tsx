@@ -26,7 +26,7 @@ const HITOS: Hito[] = [
     alt: "Kiosco de la ceremonia",
     w: 70,
     h: 53,
-    hora: "5:30 PM",
+    hora: "4:30 PM",
     evento: "Ceremonia",
     iconoIzquierda: true,
   },

@@ -35,6 +35,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="es"
+      /*
+        El script de abajo agrega la clase `js` antes de que React
+        hidrate, así que el className del servidor y el del cliente
+        difieren a propósito. Sin esto, React lo reporta como error de
+        hidratación.
+      */
+      suppressHydrationWarning
       className={`${greatVibes.variable} ${gulzar.variable} h-full antialiased`}
     >
       <body className="min-h-full">
@@ -48,7 +55,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             __html: `document.documentElement.classList.add('js')`,
           }}
         />
-        {children}
+        {/*
+          Lienzo del ancho de la ventana que recorta lo que sobresale a
+          los lados. Tiene que ser un elemento normal: si el recorte se
+          pone en <html>, el navegador lo traslada al viewport y el
+          documento igual se ensancha por dentro, arrastrando el resto
+          del contenido.
+        */}
+        <div className="lienzo">{children}</div>
       </body>
     </html>
   );

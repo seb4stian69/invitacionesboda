@@ -24,6 +24,23 @@
 html {
   background-color: var(--color-paper);
   -webkit-text-size-adjust: 100%;
+  /*
+    Red de seguridad contra el scroll horizontal. El recorte de verdad
+    lo hace `.lienzo`: el overflow puesto en la raíz se traslada al
+    viewport en lugar de aplicarse al elemento, y ese traslado no evita
+    que el documento se ensanche por dentro.
+  */
+  overflow-x: hidden;
+}
+
+/*
+  Ocupa el ancho de la ventana y recorta a los lados lo que sobresale,
+  sin ensanchar el documento. Al ser un elemento normal —no la raíz— el
+  recorte sí se aplica sobre su propia caja. `clip` y no `hidden` para
+  no convertirlo en un contenedor con scroll propio.
+*/
+.lienzo {
+  overflow-x: clip;
 }
 
 /*
@@ -49,10 +66,17 @@ body {
   página. `clip` recorta igual pero no genera esa caja.
 */
 .frame {
+  position: relative;
+  /*
+    Crea un contexto de apilamiento propio. Los ramos usan z-index
+    negativo para quedar detrás del texto; sin este aislamiento subirían
+    hasta el contexto raíz, donde se pintan por debajo del fondo de
+    papel del body y desaparecen.
+  */
+  isolation: isolate;
   width: 100%;
   max-width: var(--frame);
   margin-inline: auto;
-  overflow-x: clip;
 }
 
 /* ---- Escala tipográfica tomada del diseño ---- */

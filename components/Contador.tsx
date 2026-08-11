@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 const FECHA = "rgb(173 143 124 / 0.7)";
 
 /*
-  Instante fijo de la boda: 9 de octubre de 2026, 5:30 PM hora de
+  Instante fijo de la boda: 9 de octubre de 2026, 4:30 PM hora de
   Colombia (-05:00). Se define con el desfase explícito para que sea el
   mismo momento real en cualquier parte del mundo; lo que aporta el
   cliente es su reloj, no su zona horaria.
 */
-const OBJETIVO = new Date("2026-10-09T17:30:00-05:00").getTime();
+const OBJETIVO = new Date("2026-10-09T16:30:00-05:00").getTime();
 
 type Restante = {
   dias: number;

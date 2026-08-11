@@ -1,4 +1,5 @@
 import Boton from "@/components/Boton";
+import Flor from "@/components/Flor";
 import type { Invitado } from "@/data/invitados";
 
 /*
@@ -25,13 +26,37 @@ export default function Rsvp({ invitado }: { invitado: Invitado }) {
       </h2>
 
       {/* Título -> botón: 10px */}
-      <Boton
-        href={`https://wa.me/${WHATSAPP}?text=${mensaje(invitado)}`}
-        ancho={145}
-        className="mt-[10px]"
-      >
-        Confirmar asistencia
-      </Boton>
+      <div className="relative mt-[10px] flex w-full justify-center">
+        <Boton
+          href={`https://wa.me/${WHATSAPP}?text=${mensaje(invitado)}`}
+          ancho={145}
+        >
+          Confirmar asistencia
+        </Boton>
+
+        {/*
+          Ramo inferior: espejado y con su centro 29px por debajo del
+          centro del botón. Este contenedor mide justo lo que el botón,
+          así que `top: 50%` cae en su centro y el margen lo baja desde
+          ahí.
+
+          A 402px queda metido 72px, que es el 65% de sus 111px de
+          ancho. Ese es el punto de partida: al ensanchar la ventana el
+          `min` va destapando lo escondido, y cuando el margen de papel
+          supera esos 72px el ramo se ancla al borde de la pantalla.
+        */}
+        <Flor
+          w={111}
+          h={424}
+          espejada
+          style={{
+            top: "50%",
+            right: "min(-72px, calc((var(--frame) - 100vw) / 2))",
+            marginTop: 29,
+            transform: "translateY(-50%)",
+          }}
+        />
+      </div>
 
       {/* Botón -> bloque: 40px. Las líneas se separan con el interlineado de 38px */}
       <p
