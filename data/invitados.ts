@@ -26,8 +26,8 @@ export const INVITADOS: Invitado[] = [
   { id: "lxzirj3apsxakrrqb1vwxsdvw", ref: "Jose Ruiz", cupos: 1 },
   { id: "fm415iq1qv1yosgg7pspai43w", ref: "Hernan Velasquez", cupos: 1 },
   { id: "8f0g691mshs03p7fbsbu2ij0x", ref: "Santiago Fernandez", cupos: 1 },
-  { id: "709f438d2b7e46ef8df715b5e", ref: "Familia Lugo Rodriguez", cupos: 4 },
-  { id: "bccea51c385f4822a2cb35260", ref: "Familia Estrada De Oro", cupos: 2 },
+  { id: "bl3eg7qcrmhrvq05yee8jdr1l", ref: "Familia Lugo Rodriguez", cupos: 4 },
+  { id: "3pb98s6lazyw4sjehrz2v1n98", ref: "Familia Estrada De Oro", cupos: 2 },
 ];
 
 /*
