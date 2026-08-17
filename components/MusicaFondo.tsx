@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, type RefObject } from "react";
 
 /*
   Solo maneja cuándo suena, no el elemento <audio> en sí: lo monta
@@ -8,73 +8,42 @@ import { useEffect, useRef, type RefObject } from "react";
   canción esté lista antes de revelar la página. Tener un único
   elemento evita descargar el mp3 dos veces.
 
-  Los listeners se enganchan desde el montaje, no cuando `listo` se
-  vuelve true: la pantalla de carga no bloquea el scroll del documento,
-  así que si se esperara a que todo cargara para escuchar el gesto, un
-  scroll hecho mientras el mp3 (~5MB) todavía está bajando se perdía
-  sin que quedara ningún scroll después para volver a dispararlo. Ahora
-  el gesto se recuerda y, en cuanto `listo` se pone en true, se
-  reproduce con ese gesto ya registrado.
-
-  El primer scroll es el disparador principal, pero Chrome no siempre
-  lo cuenta como gesto válido para permitir sonido: si el navegador
-  rechaza el play(), se reintenta con el siguiente toque, clic o tecla
-  en vez de quedarse en silencio para siempre.
+  Se arma (`armado`) recién cuando el usuario ya abrió la invitación
+  con un clic real, así que para cuando llega el scroll el navegador ya
+  sabe que hubo una interacción y el play() no debería toparse con la
+  política de autoplay. Aun así se reintenta en cada scroll hasta que
+  suene, por si el primer intento fallara.
 */
 export default function MusicaFondo({
   audioRef,
-  listo,
+  armado,
 }: {
   audioRef: RefObject<HTMLAudioElement | null>;
-  listo: boolean;
+  armado: boolean;
 }) {
-  const listoRef = useRef(listo);
-  const gestoPendienteRef = useRef(false);
-  const sonandoRef = useRef(false);
-  const quitarRef = useRef<() => void>(() => {});
-
   useEffect(() => {
-    listoRef.current = listo;
-    if (listo && gestoPendienteRef.current && !sonandoRef.current) {
-      reproducir();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listo]);
-
-  function reproducir() {
-    if (sonandoRef.current) return;
+    if (!armado) return;
     const audio = audioRef.current;
     if (!audio) return;
-    audio
-      .play()
-      .then(() => {
-        sonandoRef.current = true;
-        quitarRef.current();
-      })
-      .catch(() => {
-        /* Bloqueado por el navegador: se reintenta con el próximo gesto */
-      });
-  }
 
-  useEffect(() => {
-    const eventos = ["scroll", "touchstart", "pointerdown", "keydown"] as const;
+    let sonando = false;
 
-    const intentar = () => {
-      gestoPendienteRef.current = true;
-      if (listoRef.current) reproducir();
+    const reproducir = () => {
+      if (sonando) return;
+      audio
+        .play()
+        .then(() => {
+          sonando = true;
+          window.removeEventListener("scroll", reproducir);
+        })
+        .catch(() => {
+          /* Se reintenta con el próximo scroll */
+        });
     };
 
-    quitarRef.current = () => {
-      for (const evento of eventos) window.removeEventListener(evento, intentar);
-    };
-
-    for (const evento of eventos) {
-      window.addEventListener(evento, intentar, { passive: true });
-    }
-
-    return quitarRef.current;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    window.addEventListener("scroll", reproducir, { passive: true });
+    return () => window.removeEventListener("scroll", reproducir);
+  }, [audioRef, armado]);
 
   return null;
 }

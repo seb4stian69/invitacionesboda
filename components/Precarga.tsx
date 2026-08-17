@@ -52,12 +52,15 @@ function esperarAudio(audio: HTMLAudioElement): Promise<void> {
 
 /*
   Pantalla de carga que tapa la invitación hasta que las secciones, las
-  fotos que se ven sin hacer scroll y la música están listas. Así el
-  scroll arranca con la experiencia completa, música incluida, en vez
-  de ir completándose a medida que el usuario avanza.
+  fotos que se ven sin hacer scroll y la música están listas. No se
+  abre sola: pide un clic (el gesto real que más adelante deja que el
+  navegador permita el sonido) y solo con ese clic arranca la pequeña
+  animación de apertura. La música en sí espera al primer scroll de
+  ahí en adelante, no al clic.
 */
 export default function Precarga({ children }: { children: React.ReactNode }) {
-  const [lista, setLista] = useState(false);
+  const [cargado, setCargado] = useState(false);
+  const [abierta, setAbierta] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -69,7 +72,7 @@ export default function Precarga({ children }: { children: React.ReactNode }) {
       ...IMAGENES.map(precargarImagen),
       audio ? esperarAudio(audio) : Promise.resolve(),
     ]).then(() => {
-      if (!cancelado) setLista(true);
+      if (!cancelado) setCargado(true);
     });
 
     return () => {
@@ -77,29 +80,47 @@ export default function Precarga({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  useEffect(() => {
+    /*
+      Bloquea el scroll mientras se pide el clic de apertura: así el
+      "primer scroll" que arranca la música es siempre el que hace el
+      usuario ya dentro de la invitación, no uno perdido durante la
+      carga. Solo corre en cliente, así que sin JS el body nunca se
+      bloquea.
+    */
+    document.body.style.overflowY = abierta ? "" : "hidden";
+    return () => {
+      document.body.style.overflowY = "";
+    };
+  }, [abierta]);
+
   return (
     <>
-      {/*
-        Bajo `.js` es donde se oculta esta pantalla; sin JavaScript
-        `lista` nunca cambia de `false`, así que si el ocultamiento no
-        dependiera de esa clase la invitación quedaría cubierta para
-        siempre. Ver el mismo razonamiento en `.reveal` (globals.css).
-      */}
       <div
-        className={`precarga-overlay ${lista ? "precarga-oculta" : ""}`}
-        aria-hidden={lista}
+        className={`precarga-overlay ${abierta ? "precarga-oculta" : ""}`}
+        aria-hidden={abierta}
       >
-        <span className="t-script" style={{ fontSize: 32, color: "#9e9674" }}>
-          Johana &amp; Sebastián
-        </span>
+        <span className="t-script precarga-marca">Johana &amp; Sebastián</span>
+
+        {cargado ? (
+          <button
+            type="button"
+            className="precarga-boton"
+            onClick={() => setAbierta(true)}
+          >
+            Toca para abrir
+          </button>
+        ) : (
+          <span className="precarga-cargando">Cargando…</span>
+        )}
       </div>
 
-      <div className={`precarga-contenido ${lista ? "precarga-lista" : ""}`}>
+      <div className={`precarga-contenido ${abierta ? "precarga-lista" : ""}`}>
         {children}
       </div>
 
       <audio ref={audioRef} src={CANCION} loop preload="auto" />
-      <MusicaFondo audioRef={audioRef} listo={lista} />
+      <MusicaFondo audioRef={audioRef} armado={abierta} />
     </>
   );
 }
