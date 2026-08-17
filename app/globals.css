@@ -171,6 +171,46 @@ body {
   transform: none;
 }
 
+/*
+  Pantalla de carga: cubre la invitación hasta que las secciones, las
+  fotos que se ven sin hacer scroll y la música están listas.
+
+  Mismo razonamiento que `.reveal`: el ocultamiento vive solo bajo
+  `.js`. Sin JavaScript el estado de React nunca cambia, así que si el
+  overlay se ocultara por defecto la invitación quedaría tapada para
+  siempre; por eso arranca invisible (`display: none`) y es `.js` quien
+  lo trae al frente.
+*/
+.precarga-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-paper);
+}
+
+.js .precarga-overlay {
+  display: flex;
+  opacity: 1;
+  transition: opacity 700ms ease-out;
+}
+
+.js .precarga-overlay.precarga-oculta {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.js .precarga-contenido {
+  opacity: 0;
+  transition: opacity 700ms ease-out;
+}
+
+.js .precarga-contenido.precarga-lista {
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   /* Sin movimiento: el contenido aparece de una vez, ya visible */
   .js .reveal {
