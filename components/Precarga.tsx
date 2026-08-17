@@ -99,7 +99,7 @@ export default function Precarga({ children }: { children: React.ReactNode }) {
       </div>
 
       <audio ref={audioRef} src={CANCION} loop preload="auto" />
-      <MusicaFondo audioRef={audioRef} activar={lista} />
+      <MusicaFondo audioRef={audioRef} listo={lista} />
     </>
   );
 }
