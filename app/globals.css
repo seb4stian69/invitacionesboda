@@ -205,6 +205,10 @@ body {
   pointer-events: none;
 }
 
+.precarga-overlay.precarga-clicable {
+  cursor: pointer;
+}
+
 /*
   El nombre y el texto ("Cargando..." / "Toca para abrir") van
   apilados en el mismo punto central: mientras carga se ven los dos
@@ -244,16 +248,18 @@ body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgb(173 143 124 / 0.7);
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  cursor: default;
+  cursor: inherit;
   animation: precarga-respirar 1800ms ease-in-out infinite;
 }
 
-button.precarga-texto {
-  cursor: pointer;
+/* Pedido de subir el volumen: el párrafo va quieto, solo el llamado a tocar parpadea. */
+.precarga-volumen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-inline: 24px;
+  text-align: center;
 }
 
 @keyframes precarga-respirar {

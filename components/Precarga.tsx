@@ -60,6 +60,7 @@ function esperarAudio(audio: HTMLAudioElement): Promise<void> {
 */
 export default function Precarga({ children }: { children: React.ReactNode }) {
   const [cargado, setCargado] = useState(false);
+  const [pidiendoVolumen, setPidiendoVolumen] = useState(false);
   const [abierta, setAbierta] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -67,8 +68,13 @@ export default function Precarga({ children }: { children: React.ReactNode }) {
     let cancelado = false;
     const audio = audioRef.current;
 
-    /* Volumen por defecto: que suene de fondo, no por encima de todo. */
-    if (audio) audio.volume = 0.4;
+    /*
+      No hay forma de leer el volumen real del dispositivo desde la
+      web: por privacidad, ningún navegador expone esa información. Se
+      deja alto porque, aun con el volumen del celular al máximo, un
+      volumen bajo acá se escuchaba casi nada.
+    */
+    if (audio) audio.volume = 0.8;
 
     Promise.all([
       ...MODULOS.map((cargar) => cargar()),
@@ -97,22 +103,51 @@ export default function Precarga({ children }: { children: React.ReactNode }) {
     };
   }, [abierta]);
 
+  function avanzar() {
+    if (pidiendoVolumen) {
+      setAbierta(true);
+    } else {
+      setPidiendoVolumen(true);
+    }
+  }
+
   return (
     <>
+      {/*
+        Primer clic: pide subir el volumen (no hay forma de verificarlo,
+        solo de pedirlo). Segundo clic: recién ahí se abre la
+        invitación. Todo el overlay es el objetivo, no solo las letras.
+      */}
       <div
-        className={`precarga-overlay ${abierta ? "precarga-oculta" : ""}`}
+        className={`precarga-overlay ${abierta ? "precarga-oculta" : ""} ${cargado ? "precarga-clicable" : ""}`}
         aria-hidden={abierta}
+        role={cargado ? "button" : undefined}
+        tabIndex={cargado ? 0 : undefined}
+        onClick={cargado ? avanzar : undefined}
+        onKeyDown={
+          cargado
+            ? (evento) => {
+                if (evento.key === "Enter" || evento.key === " ") {
+                  evento.preventDefault();
+                  avanzar();
+                }
+              }
+            : undefined
+        }
       >
-        {cargado ? (
-          <button
-            type="button"
-            className="precarga-texto"
-            onClick={() => setAbierta(true)}
-          >
-            Toca para abrir
-          </button>
+        {pidiendoVolumen ? (
+          <div className="precarga-volumen">
+            <p className="t-parrafo" style={{ color: "rgb(113 103 53 / 0.7)" }}>
+              Sube el volumen de tu celular
+              <br />
+              para disfrutar la música
+            </p>
+            <span className="precarga-texto">Toca para continuar</span>
+          </div>
         ) : (
-          <span className="precarga-texto">Cargando…</span>
+          <span className="precarga-texto">
+            {cargado ? "Toca para abrir" : "Cargando…"}
+          </span>
         )}
 
         <span

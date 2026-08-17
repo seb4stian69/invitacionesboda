@@ -35,10 +35,18 @@ export default function Cierre() {
       {/*
         Ahora la sección termina justo donde termina la acuarela, así que
         esta distancia se mide desde el borde inferior de la ilustración.
+
+        En vw y no en px: la acuarela ocupa el 100% del ancho de
+        pantalla, así que su alto renderizado también escala con el
+        viewport. Un offset en px se queda fijo mientras la imagen
+        crece o encoge, y el texto termina viéndose más arriba o más
+        abajo según la pantalla. En vw, el offset escala igual que la
+        imagen y el texto queda siempre en el mismo punto relativo
+        sobre ella. 12.44vw = 50px en los 402px del frame de diseño.
       */}
       <span
-        className="t-script absolute right-[50px] bottom-[50px] leading-none"
-        style={{ fontSize: 24, color: "#9e9674" }}
+        className="t-script absolute leading-none"
+        style={{ fontSize: 24, color: "#9e9674", right: "12.44vw", bottom: "12.44vw" }}
       >
         Jeremías 29:11
       </span>
