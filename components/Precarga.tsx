@@ -67,6 +67,9 @@ export default function Precarga({ children }: { children: React.ReactNode }) {
     let cancelado = false;
     const audio = audioRef.current;
 
+    /* Volumen por defecto: que suene de fondo, no por encima de todo. */
+    if (audio) audio.volume = 0.4;
+
     Promise.all([
       ...MODULOS.map((cargar) => cargar()),
       ...IMAGENES.map(precargarImagen),
@@ -100,19 +103,23 @@ export default function Precarga({ children }: { children: React.ReactNode }) {
         className={`precarga-overlay ${abierta ? "precarga-oculta" : ""}`}
         aria-hidden={abierta}
       >
-        <span className="t-script precarga-marca">Johana &amp; Sebastián</span>
-
         {cargado ? (
           <button
             type="button"
-            className="precarga-boton"
+            className="precarga-texto"
             onClick={() => setAbierta(true)}
           >
             Toca para abrir
           </button>
         ) : (
-          <span className="precarga-cargando">Cargando…</span>
+          <span className="precarga-texto">Cargando…</span>
         )}
+
+        <span
+          className={`t-script precarga-marca ${cargado ? "precarga-marca-oculta" : ""}`}
+        >
+          Johana &amp; Sebastián
+        </span>
       </div>
 
       <div className={`precarga-contenido ${abierta ? "precarga-lista" : ""}`}>
