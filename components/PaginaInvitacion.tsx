@@ -17,6 +17,7 @@ const Ceremonia = dynamic(() => import("@/components/Ceremonia"));
 const Rsvp = dynamic(() => import("@/components/Rsvp"));
 const Sobres = dynamic(() => import("@/components/Sobres"));
 const Itinerario = dynamic(() => import("@/components/Itinerario"));
+const Recuerdos = dynamic(() => import("@/components/Recuerdos"));
 const Cierre = dynamic(() => import("@/components/Cierre"));
 const Reveal = dynamic(() => import("@/components/Reveal"));
 
@@ -72,6 +73,9 @@ export default function PaginaInvitacion({ invitado }: { invitado: Invitado }) {
           </Reveal>
           <Reveal>
             <Itinerario />
+          </Reveal>
+          <Reveal>
+            <Recuerdos />
           </Reveal>
         </div>
 

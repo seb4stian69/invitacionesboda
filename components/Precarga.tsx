@@ -21,6 +21,7 @@ const MODULOS = [
   () => import("@/components/Rsvp"),
   () => import("@/components/Sobres"),
   () => import("@/components/Itinerario"),
+  () => import("@/components/Recuerdos"),
   () => import("@/components/Cierre"),
   () => import("@/components/Reveal"),
 ];
