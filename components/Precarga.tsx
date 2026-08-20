@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import MusicaFondo from "@/components/MusicaFondo";
+import { ProveedorAudio } from "@/components/AudioContexto";
 
 const CANCION = "/audio/cancion.mp3";
 
@@ -14,6 +15,7 @@ const MODULOS = [
   () => import("@/components/Hero"),
   () => import("@/components/Flor"),
   () => import("@/components/Portada"),
+  () => import("@/components/Reproductor"),
   () => import("@/components/Invitacion"),
   () => import("@/components/Ceremonia"),
   () => import("@/components/Rsvp"),
@@ -158,7 +160,7 @@ export default function Precarga({ children }: { children: React.ReactNode }) {
       </div>
 
       <div className={`precarga-contenido ${abierta ? "precarga-lista" : ""}`}>
-        {children}
+        <ProveedorAudio audioRef={audioRef}>{children}</ProveedorAudio>
       </div>
 
       <audio ref={audioRef} src={CANCION} loop preload="auto" />

@@ -11,6 +11,7 @@ import type { Invitado } from "@/data/invitados";
 const Hero = dynamic(() => import("@/components/Hero"));
 const Flor = dynamic(() => import("@/components/Flor"));
 const Portada = dynamic(() => import("@/components/Portada"));
+const Reproductor = dynamic(() => import("@/components/Reproductor"));
 const Invitacion = dynamic(() => import("@/components/Invitacion"));
 const Ceremonia = dynamic(() => import("@/components/Ceremonia"));
 const Rsvp = dynamic(() => import("@/components/Rsvp"));
@@ -51,6 +52,11 @@ export default function PaginaInvitacion({ invitado }: { invitado: Invitado }) {
 
           <Reveal>
             <Portada />
+          </Reveal>
+
+          {/* Control de la canción, entre el versículo y los nombres */}
+          <Reveal className="mt-[40px]">
+            <Reproductor />
           </Reveal>
           <Reveal>
             <Invitacion />
